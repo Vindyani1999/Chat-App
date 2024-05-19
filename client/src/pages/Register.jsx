@@ -1,100 +1,3 @@
-# Chat-Hub
-
-## Creating React App
-
-> Crate a folder called public <br>
-> You can start creating react app using following code
-
-```bash
-cd public/
-npx create-react-app chat-hub
-```
-
-## Create backend
-
-```bash
-npm init
-npm i express cors bcrypt socket.io mongoose dotenv nodemone
-```
-
-> Create a file index.js <br>
-> Update package.json as below
-
-```bash
-"scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
-  },
-```
-
-## Creating Server port and Database Connection
-
-> Add this code for inside index.js
-
-```bash
-//Getting express web framework from nodejs
-const express = require("express");
-
-//Getting cors to handle backend server requests from frontend origin
-const cors = require("cors");
-
-//Getting mongoose to manage relationship between data and the scema
-const mongoose = require("mongoose");
-
-//creating app using express framework
-const app = express();
-
-//Configering .env file
-require("dotenv").config();
-
-//using middleware
-app.use(cors());
-app.use(express.json());
-
-//creating mongodb connection
-mongoose
-  .connect(process.env.MONGODB_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("MongoDB has been connected!");
-  })
-  .catch((error) => {
-    console.log(error.message);
-  });
-
-//creating server
-const server = app.listen(process.env.PORT, () => {
-  console.log(`Server Started on port ${process.env.PORT}`);
-});
-
-```
-
-## Cleanup client directory
-
-> Remove all files in src directory instead of App.css, App.js, index.css, indesx.js <br>
-> remove all the codes inside each file. <br>
-> Open App.js and type rfce and enter.<br>
-> Run the client.
-
-
-## Adding folders 
-
-
-> components <br>
-> pages <br>
-> utils
-
-## Add files inside pages folder
-
-> Register.jsx <br>
-> Login.jsx <br>
-> Chat.jsx
-
-## Register Page
-
-```bash
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
@@ -118,29 +21,28 @@ function Register() {
                 <img src={Logo} alt='logo'/>
                 <h1>Chat-Hub</h1>
             </div>
-
-            <input
-                type='text'
-                placeholder='Username'
-                name='username'
+            <input 
+                type='text' 
+                placeholder='Username' 
+                name='username' 
+                onChange={(event)=>{handleChange(event)}}/>
+            
+            <input 
+                type='email' 
+                placeholder='Email' 
+                name='email' 
+                onChange={(event)=>{handleChange(event)}}/>
+            
+            <input 
+                type='password' 
+                placeholder='Password' 
+                name='password' 
                 onChange={(event)=>{handleChange(event)}}/>
 
-            <input
-                type='email'
-                placeholder='Email'
-                name='email'
-                onChange={(event)=>{handleChange(event)}}/>
-
-            <input
-                type='password'
-                placeholder='Password'
-                name='password'
-                onChange={(event)=>{handleChange(event)}}/>
-
-            <input
-                type='password'
-                placeholder='Confirm Passworsd'
-                name='confirmPassword'
+            <input 
+                type='password' 
+                placeholder='Confirm Passworsd' 
+                name='confirmPassword' 
                 onChange={(event)=>{handleChange(event)}}/>
 
             <button type='submit'>Sign Up</button>
@@ -152,17 +54,6 @@ function Register() {
   );
 }
 
-const FormContainer = styled.div``;
-
-export default Register
-```
-
-
-> When you paste the above code the form creation is finished <br>
-> Now paste this code inside FormContainer to decorate the form.
-
-
-```bash
 const FormContainer = styled.div`
     height: 100vh;
     width: 100wh;
@@ -235,13 +126,7 @@ const FormContainer = styled.div`
                 }
             }
         }
-
-
+    
 `;
-```
 
-
-
-> Now you are ok with the form creation and decoration part
-
-## From functionality
+export default Register

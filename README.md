@@ -78,9 +78,7 @@ const server = app.listen(process.env.PORT, () => {
 > Open App.js and type rfce and enter.<br>
 > Run the client.
 
-
-## Adding folders 
-
+## Adding folders
 
 > components <br>
 > pages <br>
@@ -159,10 +157,8 @@ const FormContainer = styled.div``;
 export default Register
 ```
 
-
 > When you paste the above code the form creation is finished <br>
 > Now paste this code inside FormContainer to decorate the form.
-
 
 ```bash
 const FormContainer = styled.div`
@@ -241,8 +237,6 @@ const FormContainer = styled.div`
 
 `;
 ```
-
-
 
 > Now you are ok with the form creation and decoration part
 
@@ -385,6 +379,181 @@ const handleSubmit = async (event)=>{
 ```
 
 - Now we have to make server side functions.
+
+
+> We need these three folders (controllers, models, routes) and three files (userControllers, userModel, userRoutes) inside the server folder.
+
+![image](https://github.com/Vindyani1999/Chat-App/assets/145743416/54af5127-42ed-41f5-aa4d-84834d28ab38)
+
+### userControler.js
+
+> update file as belows
+
+```bash
+module.exports.register = (req, res, next) => {};
+
+```
+
+### userRoutes.js
+
+```bash
+const { register } = require("../controllers/usersController");
+
+const router = require("express").Router();
+
+router.post("/register",register);
+
+module.exports=router;
+```
+
+### Update index.js
+
+> Import the userRoutes file
+
+```bash
+const userRoutes = require("./routes/userRoutes");
+```
+
+> make the middleware
+
+```bash
+app.use("/api/auth",userRoutes)
+```
+
+### Checking Workingness
+
+> update userControllers.js as below
+
+```bash
+module.exports.register = (req, res, next) => {
+    console.log(req.body);
+};
+```
+
+> Update handleSubmit()
+
+```bash
+const handleSubmit = async (event)=>{
+        event.preventDefault();
+        if(handleValidation()){
+
+            console.log("I'm in the validation part", registerRoute);
+
+            const {password, confirmPassword,username,email}=values;
+            const {data} = await axios.post(registerRoute,{
+                username,email,password
+            })
+        };
+    }
+```
+
+### UserModel.js file
+
+```bash
+const mongoose = require("mongoose");
+
+const userSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    requied: true,
+    min: 3,
+    max: 20,
+    unique: true,
+  },
+
+  email: {
+    type: String,
+    requied: true,
+    max: 500,
+    unique: true,
+  },
+
+  password: {
+    type: String,
+    requied: true,
+    min: 8,
+  },
+
+  isAvatarImageSet: {
+    type: Boolean,
+    default: false,
+  },
+
+  avatarImage: {
+    type: String,
+    default: "",
+  },
+});
+
+module.exports = mongoose.model("Users", userSchema);
+
+```
+
+> Let use this Shcema innside the contoller
+
+```bash
+const User = require("../models/userModel");
+const bcrypt = require("bcrypt");
+
+module.exports.register = async (req, res, next) => {
+  try {
+    const { username, email, password } = req.body;
+    const usernameCheck = await User.findOne({ username });
+
+    if (usernameCheck) {
+      return res.json({
+        msg: "Username is already used by another one.",
+        status: false,
+      });
+    }
+
+    const emailCheck = await User.findOne({ email });
+
+    if (emailCheck) {
+      return res.json({ msg: "Emaiil is already used", status: false });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await User.create({
+      email,
+      username,
+      password: hashedPassword,
+    });
+    delete user.password;
+    return res.json({ status: true, user });
+  } catch (error) {
+    next(error);
+  }
+};
+
+```
+
+### Again come to the Register.jsx
+
+> Update handleSubmit as follows
+
+```bash
+const handleSubmit = async (event)=>{
+        event.preventDefault();
+        if(handleValidation()){
+            console.log("I'm in the validation part", registerRoute);
+            const {password,username,email}=values;
+            const {data} = await axios.post(registerRoute,{
+                username,email,password
+            });
+
+            if(data.status===false){
+                toast.error(data.msg, toastOptions);
+            }
+
+            if(data.status===true){
+                localStorage.setItem("chat-hub-user",JSON.stringify(data.user));
+                navigate("/");
+            }
+        };
+    }
+```
+
 
 > We need these three folders (controllers, models, routes) and three files (userControllers, userModel, userRoutes) inside the server folder.
 
@@ -547,6 +716,7 @@ const handleSubmit = async (event)=>{
         };
     }
 ```
+
 
 
 

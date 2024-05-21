@@ -78,7 +78,9 @@ const server = app.listen(process.env.PORT, () => {
 > Open App.js and type rfce and enter.<br>
 > Run the client.
 
-## Adding folders
+
+## Adding folders 
+
 
 > components <br>
 > pages <br>
@@ -116,6 +118,7 @@ function Register() {
                 <img src={Logo} alt='logo'/>
                 <h1>Chat-Hub</h1>
             </div>
+
             <input
                 type='text'
                 placeholder='Username'
@@ -154,8 +157,10 @@ const FormContainer = styled.div``;
 export default Register
 ```
 
+
 > When you paste the above code the form creation is finished <br>
 > Now paste this code inside FormContainer to decorate the form.
+
 
 ```bash
 const FormContainer = styled.div`
@@ -231,8 +236,11 @@ const FormContainer = styled.div`
             }
         }
 
+
 `;
 ```
+
+
 
 > Now you are ok with the form creation and decoration part
 

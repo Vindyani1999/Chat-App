@@ -237,3 +237,138 @@ const FormContainer = styled.div`
 > Now you are ok with the form creation and decoration part
 
 ## From functionality
+
+- Here we are going to create functionalities with,
+
+  > handleChange() <br>
+  > handleSubmit() <br>
+  > handleValidation() <br>
+  > Toast Notification
+
+### 1. handleChange()
+
+> Import useEffect and useState from react
+
+```bash
+    import React, {useState, useEffect} from 'react';
+```
+
+> Create a state of user as an object.
+
+```bash
+  const [values, setValues] = useState({
+        username:"",
+        email:"",
+        password:"",
+        confirmPassword:""
+    });
+```
+
+> Destructure current value to target value in handlechange function
+
+```bash
+const handleChange= (event)=>{
+        setValues({...values, [event.target.name]:event.target.value});
+    }
+```
+
+> for checking whether the function is working correctly or not we need <strong>"React chrome extension"</strong>. Search it on google and add to chrome extensions.
+
+![image](https://github.com/Vindyani1999/Chat-App/assets/145743416/7e584ea1-c77b-48aa-8d6d-722dabae9c5c&width=600&height=200)
+
+> If the functionality is correct, then when we typing something on textboxes, the states will be automatically updated.
+
+![WhatsApp Image 2024-05-21 at 12 02 56 PM](https://github.com/Vindyani1999/Chat-App/assets/145743416/b213bfca-afba-4d61-81cd-8429a87ea940&width=800&height=200)
+
+### 2. handleValidation()
+
+> Before implementing that, we need to install a package to get customize toast messages. <br>
+> Go to frontend derectory and paste this.
+
+```bash
+npm install react-topastify
+```
+
+> Import toast from rect-toatify. <br>
+> As well as we need to import tostify css library
+
+```bash
+import {ToastContainer, toast} from 'react-toastify';
+import "react-toastify/ReactToastify.css"
+```
+
+> Add the ToastContainer end of the from after the FormContainer.
+
+```bash
+<ToastContainer/>
+```
+
+> For adding validations to the text field we are going to implement handleValidation() function.
+
+```bash
+const handleValidation=()=>{
+        const {password,confirmPassword,username,email}=values;
+        if(password !== confirmPassword)
+            {
+            toast.error("Password and confirm password should be same.", toastOptions);
+            return false;
+        }else if(username.length<3){
+            toast.error("Username should have minimum 3 characters", toastOptions);
+            return  false;
+        }else if(password.length<8){
+            toast.error("Password should have minimum 8 characters", toastOptions);
+            return false;
+        }else if(email===""){
+            toast.error("Email is required", toastOptions);
+            return false;
+        }
+        return true
+    }
+```
+
+> If our inputs are not under our rules then we have return false. <br>
+> That means we are not calling our APIs <br>
+> If we entered things correctly we need to call to APIs inside handleSubmit(). <br>
+> For thet we should import axios.
+
+```bash
+import axios from "axios";
+```
+
+> Then we are going to create the APIs in the handleValidation().
+
+```bash
+const handleSubmit = async (event)=>{
+        event.preventDefault();
+        if(handleValidation()){
+            const {password, confirmPassword,username,email}=values;
+            const {data} = await axios.post()
+        };
+    }
+
+```
+
+### APIRoutes.js file
+
+> APIRoutes.js file should be craeted in utils folder.
+
+```bash
+const host = "http://localhost:5000";
+export const registerRoute = `${host}/api/auth/login`;
+```
+
+> Update the handleValidation().
+
+```bash
+const handleSubmit = async (event)=>{
+        event.preventDefault();
+        if(handleValidation()){
+            const {password, confirmPassword,username,email}=values;
+            const {data} = await axios.post(registerRoute,{
+                username,email,password
+            })
+        };
+    }
+```
+
+- Now we have to make server side functions.

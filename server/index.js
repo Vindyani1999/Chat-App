@@ -6,6 +6,7 @@ const cors = require("cors");
 
 //Getting mongoose to manage relationship between data and the scema
 const mongoose = require("mongoose");
+const userRoutes = require("./routes/userRoutes");
 
 //creating app using express framework
 const app = express();
@@ -16,6 +17,7 @@ require("dotenv").config();
 //using middleware
 app.use(cors());
 app.use(express.json());
+app.use("/api/auth", userRoutes);
 
 //creating mongodb connection
 mongoose

@@ -90,7 +90,7 @@ const server = app.listen(process.env.PORT, () => {
 > Login.jsx <br>
 > Chat.jsx
 
----------------------------------------------------------<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Telegram-Animated-Emojis/main/Objects/Light%20Bulb.webp" alt="Light Bulb" width="75" height="75" />----------------------------------------------------
+------------------------------------------------------------<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Telegram-Animated-Emojis/main/Objects/Light%20Bulb.webp" alt="Light Bulb" width="75" height="75" />-------------------------------------------------------
 
 ## Register Page
 

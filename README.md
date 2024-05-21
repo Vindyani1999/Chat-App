@@ -252,7 +252,7 @@ const FormContainer = styled.div`
   > handleSubmit() <br>
   > handleValidation() <br>
   > Toast Notification
-  
+ 
 ### 1. handleChange() 
 
 > Import useEffect and useState from react
@@ -260,6 +260,7 @@ const FormContainer = styled.div`
 ```bash
     import React, {useState, useEffect} from 'react';
 ```
+
 > Create a state of user as an object.
 
 ```bash
@@ -270,6 +271,7 @@ const FormContainer = styled.div`
         confirmPassword:""
     });
 ```
+
 > Destructure current value to target value in handlechange function
 
 ```bash
@@ -286,7 +288,9 @@ const handleChange= (event)=>{
 
 ![WhatsApp Image 2024-05-21 at 12 02 56 PM](https://github.com/Vindyani1999/Chat-App/assets/145743416/b213bfca-afba-4d61-81cd-8429a87ea940&width=800&height=200)
 
+
 ### 2. handleValidation() 
+
 
 > Before implementing that, we need to install a package to get customize toast messages. <br>
 > Go to frontend derectory and paste this.
@@ -294,6 +298,7 @@ const handleChange= (event)=>{
 ```bash
 npm install react-topastify
 ```
+
 > Import toast from rect-toatify. <br>
 > As well as we need to import tostify css library
 
@@ -301,12 +306,15 @@ npm install react-topastify
 import {ToastContainer, toast} from 'react-toastify';
 import "react-toastify/ReactToastify.css"
 ```
+
 > Add the ToastContainer end of the from after the FormContainer.
 
 ```bash
 <ToastContainer/>
 ```
+
 > For adding validations to the text field we are going to implement handleValidation() function.
+
 ```bash
 const handleValidation=()=>{
         const {password,confirmPassword,username,email}=values;
@@ -336,7 +344,9 @@ const handleValidation=()=>{
 ```bash
 import axios from "axios";
 ```
+
 > Then we are going to create the APIs in the  handleValidation().
+
 
 ```bash
 const handleSubmit = async (event)=>{
@@ -371,6 +381,7 @@ const handleSubmit = async (event)=>{
         };
     }
 ```
+
 - Now we have to make server side functions.
   
 
